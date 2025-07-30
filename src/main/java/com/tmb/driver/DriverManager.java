@@ -46,7 +46,7 @@ public final class DriverManager {
 	 * Jan 21, 2021
 	 * @param driverref {@link org.openqa.selenium.WebDriver} instance that needs to saved from Thread safety issues.<p>
 	 */
-	static void setDriver(WebDriver driverref) {
+	public static void setDriver(WebDriver driverref) {
 		if(Objects.nonNull(driverref)) {
 			dr.set(driverref);
 		}

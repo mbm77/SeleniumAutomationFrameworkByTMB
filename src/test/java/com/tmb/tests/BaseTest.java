@@ -35,7 +35,7 @@ public class BaseTest {
 	 * a hashmap containing all the values from the excel sheet.
 	 */
 	@SuppressWarnings("unchecked")
-	@BeforeMethod
+	@BeforeMethod(alwaysRun=true)
 	protected void setUp(Object[] data) { //Map<String,String>
 		Map<String,String> map = (Map<String,String>)data[0];
 		Driver.initDriver(map.get("browser"),map.get("version"));
@@ -46,7 +46,7 @@ public class BaseTest {
 	 * @author Amuthan Sakthivel
 	 * Jan 22, 2021
 	 */
-	@AfterMethod
+	@AfterMethod(alwaysRun=true)
 	protected void tearDown() {
 		Driver.quitDriver();
 	}

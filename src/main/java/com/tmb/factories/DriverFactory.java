@@ -9,11 +9,9 @@ import java.net.URL;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.BrowserType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import com.tmb.driver.DriverManager;
 import com.tmb.enums.ConfigProperties;
 import com.tmb.utils.PropertyUtils;
 
@@ -47,20 +45,21 @@ public final class DriverFactory {
 		if(browser.equalsIgnoreCase("chrome")) {
 			if(runmode.equalsIgnoreCase("remote")) {
 				DesiredCapabilities cap = new DesiredCapabilities();
-				cap.setBrowserName(BrowserType.CHROME);
+				cap.setBrowserName("chrome");
 				cap.setVersion(version);
 				driver =new RemoteWebDriver(new URL(PropertyUtils.get(ConfigProperties.SELENIUMGRIDURL)), cap);
 			}
 			else {
 				WebDriverManager.chromedriver().setup();
 				driver = new ChromeDriver();
+				driver.manage().window().maximize();
 			}
 		}
 		else if(browser.equalsIgnoreCase("firefox")) {
 
 			if(runmode.equalsIgnoreCase("remote")) {
 				DesiredCapabilities cap = new DesiredCapabilities();
-				cap.setBrowserName(BrowserType.FIREFOX);
+				cap.setBrowserName("firefox");
 				cap.setVersion(version);
 				driver =new RemoteWebDriver(new URL(PropertyUtils.get(ConfigProperties.SELENIUMGRIDURL)), cap);
 			} else {

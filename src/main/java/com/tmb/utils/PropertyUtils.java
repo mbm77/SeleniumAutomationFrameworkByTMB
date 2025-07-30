@@ -2,12 +2,12 @@ package com.tmb.utils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 
-import com.tmb.constants.FrameworkConstants;
 import com.tmb.enums.ConfigProperties;
 import com.tmb.exceptions.PropertyFileUsageException;
 
@@ -29,23 +29,25 @@ import com.tmb.exceptions.PropertyFileUsageException;
 public final class PropertyUtils {
 
 	private static Properties property = new Properties();
-	private static final Map<String, String> CONFIGMAP = new HashMap<>();
-
+	//private static final Map<String, String> CONFIGMAP = new HashMap<>();
+	private static final Map<String, String> CONFIGMAP;
 	/**
 	 * Private constructor to avoid external instantiation
 	 */
 	private PropertyUtils() {}
 
 	static {
-		try(FileInputStream file = new FileInputStream(FrameworkConstants.getConfigFilePath())) {
-			property.load(file);
-			for (Map.Entry<Object, Object> entry : property.entrySet()) {
-				CONFIGMAP.put(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()).trim()); //remove the trailing and leading spaces
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.exit(0);
-		} 
+	    Properties properties = new Properties();
+	    try (FileInputStream file = new FileInputStream("config.properties")) {
+	        properties.load(file);
+	        Map<String, String> tempMap = new HashMap<>();
+	        for (Map.Entry<Object, Object> entry : properties.entrySet()) {
+	            tempMap.put(String.valueOf(entry.getKey()), String.valueOf(entry.getValue()).trim());
+	        }
+	        CONFIGMAP = Collections.unmodifiableMap(tempMap); // ✅ Immutable and thread-safe
+	    } catch (IOException e) {
+	        throw new RuntimeException("Failed to load config file", e);
+	    }
 	}
 
 	/**

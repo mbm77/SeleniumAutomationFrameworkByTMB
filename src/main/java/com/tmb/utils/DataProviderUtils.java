@@ -50,20 +50,33 @@ public final class DataProviderUtils {
 	 */
 	@DataProvider(parallel=false)
 	public static Object[] getData(Method m) {
-		String testname = m.getName();
-
+		String testName = m.getName();
+		//System.out.println(testName);
 		if(list.isEmpty()) {
 			list = ExcelUtils.getTestDetails(FrameworkConstants.getIterationDatasheet());
-			System.out.println(list);
 		}
-		List<Map<String, String>> smalllist = new ArrayList<>(list);
-
+		List<Map<String, String>> smallList = new ArrayList<>();
+		/*
+		 * 
 		Predicate<Map<String,String>> isTestNameNotMatching = map ->!map.get("testname").equalsIgnoreCase(testname);
 		Predicate<Map<String,String>> isExecuteColumnNo = map -> map.get("execute").equalsIgnoreCase("no");
 
 		smalllist.removeIf(isTestNameNotMatching.or(isExecuteColumnNo));
 		return smalllist.toArray();
+		*
+		*/
 		
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).get("testname").equalsIgnoreCase(testName)) {
+				if (list.get(i).get("execute").equalsIgnoreCase("yes")) {
+					System.out.println(testName);
+					smallList.add(list.get(i));
+					
+				}
+			}
+		}
+		
+		return smallList.toArray();
 	}
 	
 }

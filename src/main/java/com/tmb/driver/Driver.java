@@ -22,23 +22,12 @@ SOFTWARE.
 package com.tmb.driver;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Objects;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.BrowserType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-
-import com.tmb.constants.FrameworkConstants;
 import com.tmb.enums.ConfigProperties;
 import com.tmb.exceptions.BrowserInvocationFailedException;
 import com.tmb.factories.DriverFactory;
 import com.tmb.utils.PropertyUtils;
-
-import io.github.bonigarcia.wdm.WebDriverManager;
 
 /**
  * 
@@ -89,6 +78,7 @@ public final class Driver {
 			} catch (MalformedURLException e) {
 				throw new BrowserInvocationFailedException("Please check the capabilities of browser");
 			}
+			
 			DriverManager.getDriver().get(PropertyUtils.get(ConfigProperties.URL));
 		}
 	}
