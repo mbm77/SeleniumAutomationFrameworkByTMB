@@ -48,7 +48,7 @@ public final class OrangeHRMTests extends BaseTest {
 	@Test
 	@FrameworkAnnotation(author = { "Amuthan", "Sachin" }, category = { CategoryType.REGRESSION })
 	public void loginLogoutTest(Map<String, String> data) {
-		//System.out.println(data);
+		System.out.println(data);
 		String title = new OrangeHRMLoginPage().enterUserName(data.get("username")).enterPassWord(data.get("password"))
 				.clickLogin().clickUserDopdown().clickLogout().getTitle();
 		Assertions.assertThat(title).isEqualTo("OrangeHRM");
